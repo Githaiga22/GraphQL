@@ -53,16 +53,66 @@ button:hover {
     background: #0056b3;
 }
 
-#userInfo, #statistics {
+#userInfo, #skillsSection, #statistics {
     max-width: 600px;
     margin: 30px auto;
     background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 30px 30px 20px 30px;
+    border-radius: 14px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#graphs {
+#userInfo {
+    font-size: 1.15rem;
+    min-height: 180px;
+    margin-bottom: 20px;
+}
+
+#skillsSection {
+    min-height: 120px;
+    margin-bottom: 20px;
+}
+
+#statistics {
+    min-height: 320px;
+    margin-bottom: 40px;
+}
+
+#xpGraph {
     margin-top: 20px;
-    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Mini skill pies styling */
+#skillsSection > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+}
+
+/* Make mini pies larger and more visually appealing */
+#skillsSection svg {
+    width: 90px !important;
+    height: 90px !important;
+}
+#skillsSection div[style*="inline-block"] {
+    margin: 10px 18px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+    #userInfo, #skillsSection, #statistics {
+        max-width: 98vw;
+        padding: 10px;
+    }
+    #skillsSection svg {
+        width: 60px !important;
+        height: 60px !important;
+    }
 } 
