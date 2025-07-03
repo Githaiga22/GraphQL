@@ -7,20 +7,29 @@
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <!-- Profile page content -->
     <h2>User Profile</h2>
-    <!-- Section to display user information -->
     <section id="userInfo">
-        <!-- User info will be populated here by JavaScript -->
+        <div><span id="username"></span></div>
+        <div><span id="login"></span></div>
+        <div><span id="full-name"></span></div>
+        <div><span id="email"></span></div>
+        <div><span id="phone"></span></div>
+        <div><span id="gender"></span></div>
+        <div><span id="dob"></span></div>
+        <div>XP: <span id="xp"></span></div>
+        <div>Grade: <span id="grade"></span></div>
+        <div>Audit Ratio: <span id="audits"></span></div>
+        <div>Level: <span id="level"></span></div>
     </section>
-    <!-- Section for statistics and SVG graphs -->
+    <section id="skillsSection">
+        <h3>Top Skills</h3>
+        <!-- Mini skill pies will be rendered here by JavaScript -->
+    </section>
     <section id="statistics">
         <h3>Statistics</h3>
-        <!-- SVG graphs will be rendered here by JavaScript -->
-        <div id="graphs"></div>
+        <div id="xpGraph"></div>
     </section>
-    <!-- Logout button -->
     <button id="logoutBtn">Logout</button>
-    <script src="scripts/profile.js"></script>
+    <script type="module" src="scripts/profile.js"></script>
 </body>
 </html> 
