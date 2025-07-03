@@ -3,33 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - GraphQL Profile Project</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/main.css"/>
+    <title>User Profile - GraphQL</title>
 </head>
 <body>
-    <h2>User Profile</h2>
-    <section id="userInfo">
-        <div><span id="username"></span></div>
-        <div><span id="login"></span></div>
-        <div><span id="full-name"></span></div>
-        <div><span id="email"></span></div>
-        <div><span id="phone"></span></div>
-        <div><span id="gender"></span></div>
-        <div><span id="dob"></span></div>
-        <div>XP: <span id="xp"></span></div>
-        <div>Grade: <span id="grade"></span></div>
-        <div>Audit Ratio: <span id="audits"></span></div>
-        <div>Level: <span id="level"></span></div>
-    </section>
-    <section id="skillsSection">
-        <h3>Top Skills</h3>
-        <!-- Mini skill pies will be rendered here by JavaScript -->
-    </section>
-    <section id="statistics">
-        <h3>Statistics</h3>
-        <div id="xpGraph"></div>
-    </section>
-    <button id="logoutBtn">Logout</button>
+    <div class="container">
+        <div class="header">
+            <h2>User Profile</h2>
+            <button id="logoutBtn" class="logout-btn">Logout</button>
+        </div>
+        <div class="stats">
+            <div class="stat-card">
+                <span id="xp">0</span>
+                XP
+            </div>
+            <div class="stat-card">
+                <span id="grade">0</span>
+                Grade
+            </div>
+            <div class="stat-card">
+                <span id="audits">0</span>
+                Audit Ratio
+            </div>
+            <div class="stat-card">
+                <span id="level">0</span>
+                Level
+            </div>
+        </div>
+        <div class="skills-section">
+            <h3>Top Skills</h3>
+            <div id="skills-container"></div>
+        </div>
+        <div class="graph-section">
+            <h3>XP Progression</h3>
+            <div id="xp-graph"></div>
+        </div>
+        <div id="userInfo" style="display:none">
+            <div><span id="username"></span></div>
+            <div><span id="login"></span></div>
+            <div><span id="full-name"></span></div>
+            <div><span id="email"></span></div>
+            <div><span id="phone"></span></div>
+            <div><span id="gender"></span></div>
+            <div><span id="dob"></span></div>
+        </div>
+    </div>
     <script type="module" src="scripts/profile.js"></script>
 </body>
 </html> 
