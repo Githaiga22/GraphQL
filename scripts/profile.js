@@ -4,6 +4,7 @@
 // Import SVG graph modules at the top level
 import { renderXPLineChart } from './graphs/xpLineChart.js';
 import { renderMiniSkillPie } from './graphs/miniSkillPie.js';
+import { renderAuditBarGraph } from './graphs/auditBarGraph.js';
 
 // Wait for the DOM to load before running the script
 window.addEventListener('DOMContentLoaded', function() {
@@ -133,6 +134,10 @@ function updateUI(userData) {
     });
     // Render XP progression as a line chart in #xp-graph
     renderXPLineChart(document.getElementById('xp-graph'), xpTransactions.map(tx => ({ date: tx.createdAt.slice(0, 10), xp: tx.amount })));
+    // Render Audit Ratio bar graph
+    const xpReceived = transactions.filter(tx => tx.type === 'up').reduce((sum, tx) => sum + tx.amount, 0);
+    const xpGiven = transactions.filter(tx => tx.type === 'down').reduce((sum, tx) => sum + tx.amount, 0);
+    renderAuditBarGraph(document.getElementById('audit-graph'), xpReceived, xpGiven);
 }
 
 // Utility: Format XP nicely (e.g., MBs)
