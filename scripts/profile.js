@@ -7,103 +7,93 @@ import { renderMiniSkillPie } from './graphs/miniSkillPie.js';
 
 // Wait for the DOM to load before running the script
 window.addEventListener('DOMContentLoaded', function() {
-    // Get references to DOM elements
-    const userInfoSection = document.getElementById('userInfo');
     const logoutBtn = document.getElementById('logoutBtn');
-
-    // Function to fetch user info from GraphQL API
-    async function fetchUserData() {
-        const jwt = localStorage.getItem('jwt');
-        if (!jwt) {
-            // If not logged in, redirect to login page
-            window.location.href = 'login.html';
-            return;
-        }
-        // Use your friend's working query
-        const query = `
-            query {
-                user {
-                    id
-                    login
-                    attrs
-                    auditRatio
-                    skills: transactions(where: { type: { _like: "skill_%" } }order_by: [{ amount: desc }]) {
-                        type
-                        amount
-                    }
-                    audits(order_by: {createdAt: desc},where: {closedAt: {_is_null: true} group: {captain: { canAccessPlatform: {_eq: true}}}}) {
-                        closedAt
-                        group {
-                            captain{
-                                canAccessPlatform
-                            }
-                            captainId
-                            captainLogin
-                            path
-                            createdAt
-                            updatedAt
-                            members {
-                                userId
-                                userLogin
-                            }
-                        }
-                        private {
-                            code
-                        }
-                    }
-                    events(where: {eventId: {_eq: 75}}) {
-                        level
-                    }
-                }
-                transaction(where: {_and: [{eventId:{_eq: 75}}]},order_by: { createdAt: desc }) {
-                    amount
-                    createdAt
-                    eventId
-                    path
-                    type
-                    userId
-                }
-                progress(where: {_and: [{grade: {_is_null: false}},{eventId:{_eq: 75}}]},order_by: {createdAt: desc}){
-                    id
-                    createdAt
-                    eventId
-                    grade
-                    path
-                }
-            }
-        `;
-        try {
-            const response = await fetch('https://learn.zone01kisumu.ke/api/graphql-engine/v1/graphql', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${jwt}`
-                },
-                body: JSON.stringify({ query })
-            });
-            if (!response.ok) throw new Error('Failed to fetch user data');
-            const result = await response.json();
-            if (result.data && result.data.user.length > 0) {
-                updateUI(result);
-            } else {
-                console.log('GraphQL Response:', result); // Debugging
-                userInfoSection.innerHTML = '<p>No user data found.</p>';
-            }
-        } catch (error) {
-            userInfoSection.innerHTML = `<p>Error: ${error.message}</p>`;
-        }
-    }
-
-    // Logout button functionality
     logoutBtn.addEventListener('click', function() {
-        // Remove JWT from localStorage and redirect to login
         localStorage.removeItem('jwt');
         window.location.href = 'login.html';
     });
-
-    // Fetch user info on page load
     fetchUserData();
 });
+
+async function fetchUserData() {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+        window.location.href = 'login.html';
+        return;
+    }
+    const query = `
+        query {
+            user {
+                id
+                login
+                attrs
+                auditRatio
+                skills: transactions(where: { type: { _like: "skill_%" } }order_by: [{ amount: desc }]) {
+                    type
+                    amount
+                }
+                audits(order_by: {createdAt: desc},where: {closedAt: {_is_null: true} group: {captain: { canAccessPlatform: {_eq: true}}}}) {
+                    closedAt
+                    group {
+                        captain{
+                            canAccessPlatform
+                        }
+                        captainId
+                        captainLogin
+                        path
+                        createdAt
+                        updatedAt
+                        members {
+                            userId
+                            userLogin
+                        }
+                    }
+                    private {
+                        code
+                    }
+                }
+                events(where: {eventId: {_eq: 75}}) {
+                    level
+                }
+            }
+            transaction(where: {_and: [{eventId:{_eq: 75}}]},order_by: { createdAt: desc }) {
+                amount
+                createdAt
+                eventId
+                path
+                type
+                userId
+            }
+            progress(where: {_and: [{grade: {_is_null: false}},{eventId:{_eq: 75}}]},order_by: {createdAt: desc}){
+                id
+                createdAt
+                eventId
+                grade
+                path
+            }
+        }
+    `;
+    try {
+        const response = await fetch('https://learn.zone01kisumu.ke/api/graphql-engine/v1/graphql', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+            },
+            body: JSON.stringify({ query })
+        });
+        if (!response.ok) throw new Error('Failed to fetch user data');
+        const result = await response.json();
+        if (result.data && result.data.user.length > 0) {
+            updateUI(result);
+        } else {
+            console.log('GraphQL Response:', result); // Debugging
+            document.querySelector('.container').innerHTML = '<p>No user data found.</p>';
+        }
+    } catch (error) {
+        document.querySelector('.container').innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+}
 
 function updateUI(userData) {
     const user = userData.data.user[0];
@@ -122,29 +112,30 @@ function updateUI(userData) {
     const skills = user.skills || [];
     // Top skills (by amount)
     const topSkills = getTopUniqueSkills(skills);
-    // Update DOM
-    document.getElementById('username').innerText = (user.attrs?.firstName || '') + '🔽';
-    document.getElementById('login').innerText = user.login || '';
-    document.getElementById('full-name').innerText = (user.attrs?.firstName || '') + ' ' + (user.attrs?.lastName || '');
-    document.getElementById('email').innerText = user.attrs?.email || '';
-    document.getElementById('phone').innerText = user.attrs?.phone || '';
-    document.getElementById('gender').innerText = user.attrs?.gender || '';
-    document.getElementById('dob').innerText = user.attrs?.dateOfBirth || '';
+    // Update stat cards
     document.getElementById('xp').innerText = opt(totalXP);
     document.getElementById('grade').innerText = totalGrade.toFixed(2);
     document.getElementById('audits').innerText = auditRatio.toFixed(1);
     document.getElementById('level').innerText = level;
-    // Render mini skill pies in skillsSection
-    const skillsSection = document.getElementById('skillsSection');
-    // Remove all children except the heading
-    while (skillsSection.children.length > 1) skillsSection.removeChild(skillsSection.lastChild);
+    // Render mini skill pies in #skills-container
+    const skillsContainer = document.getElementById('skills-container');
+    skillsContainer.innerHTML = '';
     topSkills.forEach(skill => {
         // Convert amount to percent (relative to top skill)
         const percent = Math.round((skill.amount / topSkills[0].amount) * 100);
-        renderMiniSkillPie(skillsSection, skill.type, percent);
+        // Create a .skill-chart wrapper for each pie
+        const chartDiv = document.createElement('div');
+        chartDiv.className = 'skill-chart';
+        renderMiniSkillPie(chartDiv, skill.type, percent);
+        // Add label below
+        const label = document.createElement('div');
+        label.className = 'skill-label';
+        label.textContent = skill.type;
+        chartDiv.appendChild(label);
+        skillsContainer.appendChild(chartDiv);
     });
-    // Render XP graph
-    renderXPGraph(document.getElementById('xpGraph'), xpTransactions.map(tx => ({ date: tx.createdAt.slice(0, 10), xp: tx.amount })));
+    // Render XP graph in #xp-graph
+    renderXPGraph(document.getElementById('xp-graph'), xpTransactions.map(tx => ({ date: tx.createdAt.slice(0, 10), xp: tx.amount })));
 }
 
 // Utility: Format XP nicely (e.g., MBs)
