@@ -2,7 +2,7 @@
 // This script handles fetching user info, rendering statistics, and logout functionality
 
 // Import SVG graph modules at the top level
-import { renderXPGraph } from './graphs/xpGraph.js';
+import { renderXPLineChart } from './graphs/xpLineChart.js';
 import { renderMiniSkillPie } from './graphs/miniSkillPie.js';
 
 // Wait for the DOM to load before running the script
@@ -110,32 +110,29 @@ function updateUI(userData) {
     const level = user.events && user.events.length > 0 ? user.events[0].level : '';
     // Skills
     const skills = user.skills || [];
-    // Top skills (by amount)
+    // Top unique skills (by amount)
     const topSkills = getTopUniqueSkills(skills);
     // Update stat cards
     document.getElementById('xp').innerText = opt(totalXP);
     document.getElementById('grade').innerText = totalGrade.toFixed(2);
     document.getElementById('audits').innerText = auditRatio.toFixed(1);
     document.getElementById('level').innerText = level;
-    // Render mini skill pies in #skills-container
+    // Render mini skill pies in #skills-container (no duplicate labels)
     const skillsContainer = document.getElementById('skills-container');
     skillsContainer.innerHTML = '';
     topSkills.forEach(skill => {
-        // Convert amount to percent (relative to top skill)
         const percent = Math.round((skill.amount / topSkills[0].amount) * 100);
-        // Create a .skill-chart wrapper for each pie
         const chartDiv = document.createElement('div');
         chartDiv.className = 'skill-chart';
-        renderMiniSkillPie(chartDiv, skill.type, percent);
-        // Add label below
+        renderMiniSkillPie(chartDiv, '', percent); // Only show percent in pie
         const label = document.createElement('div');
         label.className = 'skill-label';
         label.textContent = skill.type;
         chartDiv.appendChild(label);
         skillsContainer.appendChild(chartDiv);
     });
-    // Render XP graph in #xp-graph
-    renderXPGraph(document.getElementById('xp-graph'), xpTransactions.map(tx => ({ date: tx.createdAt.slice(0, 10), xp: tx.amount })));
+    // Render XP progression as a line chart in #xp-graph
+    renderXPLineChart(document.getElementById('xp-graph'), xpTransactions.map(tx => ({ date: tx.createdAt.slice(0, 10), xp: tx.amount })));
 }
 
 // Utility: Format XP nicely (e.g., MBs)
