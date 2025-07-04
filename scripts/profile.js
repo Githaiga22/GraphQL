@@ -127,6 +127,32 @@ function updateUI(userData) {
     const xpReceived = transactions.filter(tx => tx.type === 'up').reduce((sum, tx) => sum + tx.amount, 0);
     const xpGiven = transactions.filter(tx => tx.type === 'down').reduce((sum, tx) => sum + tx.amount, 0);
     renderAuditBarGraph(document.getElementById('audit-graph'), xpReceived, xpGiven);
+    // User dropdown: show name and more info
+    const dropdownBtn = document.getElementById('userDropdownBtn');
+    const dropdownMenu = document.getElementById('userDropdownMenu');
+    const firstName = user.attrs?.firstName || '';
+    const lastName = user.attrs?.lastName || '';
+    const login = user.login || '';
+    dropdownBtn.textContent = `${firstName} ${lastName}`.trim() || login;
+    dropdownMenu.innerHTML = `
+        <div style="padding: 10px 0 5px 0; font-weight: 600; color: #6366f1; text-align: center;">${firstName} ${lastName}</div>
+        <div style="padding: 4px 16px; color: #c7d2fe;">Login: <b>${login}</b></div>
+        <div style="padding: 4px 16px; color: #c7d2fe;">Email: <b>${user.attrs?.email || 'N/A'}</b></div>
+        <div style="padding: 4px 16px; color: #c7d2fe;">Phone: <b>${user.attrs?.phone || 'N/A'}</b></div>
+        <div style="padding: 4px 16px; color: #c7d2fe;">Gender: <b>${user.attrs?.gender || 'N/A'}</b></div>
+        <div style="padding: 4px 16px; color: #c7d2fe;">DOB: <b>${user.attrs?.dateOfBirth || 'N/A'}</b></div>
+    `;
+    // Dropdown show/hide logic
+    dropdownBtn.onclick = (e) => {
+        e.stopPropagation();
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    };
+    document.addEventListener('click', function hideDropdown(e) {
+        if (dropdownMenu.style.display === 'block') {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+    dropdownMenu.onclick = (e) => e.stopPropagation();
 }
 
 // Utility: Format XP nicely (e.g., MBs)
