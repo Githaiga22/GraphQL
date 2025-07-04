@@ -3,7 +3,7 @@
 
 // Import SVG graph modules at the top level
 import { renderXPLineChart } from './graphs/xpLineChart.js';
-import { renderMiniSkillPie } from './graphs/miniSkillPie.js';
+import { renderSkillsDonutChart } from './graphs/skillsDonutChart.js';
 import { renderAuditBarGraph } from './graphs/auditBarGraph.js';
 
 // Wait for the DOM to load before running the script
@@ -118,20 +118,9 @@ function updateUI(userData) {
     document.getElementById('grade').innerText = totalGrade.toFixed(2);
     document.getElementById('audits').innerText = auditRatio.toFixed(1);
     document.getElementById('level').innerText = level;
-    // Render mini skill pies in #skills-container (no duplicate labels)
+    // Render donut chart for skills in #skills-container
     const skillsContainer = document.getElementById('skills-container');
-    skillsContainer.innerHTML = '';
-    topSkills.forEach(skill => {
-        const percent = Math.round((skill.amount / topSkills[0].amount) * 100);
-        const chartDiv = document.createElement('div');
-        chartDiv.className = 'skill-chart';
-        renderMiniSkillPie(chartDiv, '', percent); // Only show percent in pie
-        const label = document.createElement('div');
-        label.className = 'skill-label';
-        label.textContent = skill.type;
-        chartDiv.appendChild(label);
-        skillsContainer.appendChild(chartDiv);
-    });
+    renderSkillsDonutChart(skillsContainer, topSkills.map(s => ({ name: s.type, value: s.amount })));
     // Render XP progression as a line chart in #xp-graph
     renderXPLineChart(document.getElementById('xp-graph'), xpTransactions.map(tx => ({ date: tx.createdAt.slice(0, 10), xp: tx.amount })));
     // Render Audit Ratio bar graph
