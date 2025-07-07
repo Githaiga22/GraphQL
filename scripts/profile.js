@@ -130,10 +130,11 @@ function updateUI(userData) {
     // User dropdown: show name and more info
     const dropdownBtn = document.getElementById('userDropdownBtn');
     const dropdownMenu = document.getElementById('userDropdownMenu');
+    const dropdownName = document.getElementById('dropdownName');
     const firstName = user.attrs?.firstName || '';
     const lastName = user.attrs?.lastName || '';
     const login = user.login || '';
-    dropdownBtn.textContent = `${firstName} ${lastName}`.trim() || login;
+    dropdownName.textContent = `${firstName} ${lastName}`.trim() || login;
     dropdownMenu.innerHTML = `
         <div style="padding: 10px 0 5px 0; font-weight: 600; color: #6366f1; text-align: center;">${firstName} ${lastName}</div>
         <div style="padding: 4px 16px; color: #c7d2fe;">Login: <b>${login}</b></div>
