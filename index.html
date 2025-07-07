@@ -12,28 +12,47 @@
             color: #e2e8f0;
             margin: 0;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .landing-container {
-            margin: 80px 0 0 80px;
-            max-width: 480px;
+        header {
+            width: 100%;
             background: #1e293b;
-            padding: 44px 36px 36px 36px;
-            border-radius: 14px;
-            box-shadow: 0 8px 32px rgba(30, 64, 175, 0.18);
+            padding: 22px 0 18px 0;
+            box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
         }
-        .landing-title {
-            font-size: 2.1rem;
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #6366f1;
+            letter-spacing: 0.5px;
+        }
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 32px 40px 32px;
+        }
+        .main-title {
+            font-size: 2.2rem;
             font-weight: 700;
             color: #6366f1;
             margin-bottom: 12px;
-            letter-spacing: 0.5px;
         }
-        .landing-desc {
-            font-size: 1.08rem;
+        .main-desc {
+            font-size: 1.1rem;
             color: #c7d2fe;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
         }
-        .landing-login-btn {
+        .main-login-btn {
             background: linear-gradient(135deg, #6366f1, #4f46e5);
             color: white;
             border: none;
@@ -45,36 +64,86 @@
             transition: 0.2s;
             box-shadow: 0 4px 16px rgba(99, 102, 241, 0.13);
         }
-        .landing-login-btn:hover {
+        .main-login-btn:hover {
             background: linear-gradient(135deg, #4f46e5, #4338ca);
             transform: translateY(-2px);
         }
-        .landing-footer {
-            margin-top: 38px;
+        footer {
+            width: 100%;
+            background: #1e293b;
             color: #64748b;
-            font-size: 0.98rem;
+            font-size: 1rem;
+            padding: 18px 0 14px 0;
             border-top: 1px solid #334155;
-            padding-top: 14px;
+            margin-top: 40px;
         }
-        .landing-footer a {
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer-left {
+            font-size: 1rem;
+        }
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .footer-link {
             color: #818cf8;
             text-decoration: none;
             margin-left: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .footer-link svg {
+            vertical-align: middle;
+            margin-right: 2px;
+        }
+        @media (max-width: 700px) {
+            .header-content, .footer-content, main {
+                padding: 0 10px;
+            }
+            main {
+                padding-top: 30px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="landing-container">
-        <div class="landing-title">Welcome to GraphQL Project</div>
-        <div class="landing-desc">
+    <header>
+        <div class="header-content">
+            <div class="header-title">GraphQL Profile Project</div>
+        </div>
+    </header>
+    <main>
+        <div class="main-title">Welcome to GraphQL Project</div>
+        <div class="main-desc">
             Explore your profile at your convenience.<br>
             Login to get started.
         </div>
-        <a href="login.html"><button class="landing-login-btn">Login</button></a>
-        <div class="landing-footer">
-            Project created by Allan Robinson<br>
-            Github: <a href="https://github.com/githaiga22" target="_blank">@githaiga22</a> &nbsp;|&nbsp; Email: <a href="mailto:allangithaiga5@gmail.com">allangithaiga5@gmail.com</a>
+        <a href="login.html"><button class="main-login-btn">Login</button></a>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                Project created by Allan Robinson
+            </div>
+            <div class="footer-right">
+                <a class="footer-link" href="https://github.com/githaiga22" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.477 2 2 6.484 2 12.021c0 4.428 2.865 8.184 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.339-2.221-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.338 1.909-1.295 2.748-1.025 2.748-1.025.546 1.378.202 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.847-2.337 4.695-4.566 4.944.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.749 0 .268.18.579.688.481C19.138 20.2 22 16.447 22 12.021 22 6.484 17.523 2 12 2z" fill="#818cf8"/></svg>
+                    @githaiga22
+                </a>
+                <span>|</span>
+                <a class="footer-link" href="mailto:allangithaiga5@gmail.com">allangithaiga5@gmail.com</a>
+            </div>
         </div>
-    </div>
+    </footer>
 </body>
 </html> 
