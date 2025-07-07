@@ -36,6 +36,7 @@ body {
     margin-bottom: 24px;
     padding-bottom: 24px;
     border-bottom: 1px solid #334155;
+    position: relative;
 }
 
 .header h2 {
@@ -176,6 +177,38 @@ body {
     border: 1px solid #334155;
     display: flex;
     justify-content: center;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    min-width: 240px;
+    background: #1e293b;
+    color: #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(30, 64, 175, 0.25);
+    z-index: 100;
+    padding: 12px 0 8px 0;
+    font-size: 15px;
+    transition: all 0.2s;
+    border: 1px solid #334155;
+}
+
+.dropdown-content div {
+    padding: 6px 18px;
+    color: #c7d2fe;
+    font-size: 15px;
+    border-bottom: 1px solid #334155;
+}
+.dropdown-content div:last-child {
+    border-bottom: none;
+}
+
+.dropdown-toggle:focus + .dropdown-content,
+.dropdown-toggle:active + .dropdown-content {
+    display: block;
 }
 
 /* Responsive adjustments */
