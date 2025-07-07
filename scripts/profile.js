@@ -131,26 +131,32 @@ function updateUI(userData) {
     const dropdownBtn = document.getElementById('userDropdownBtn');
     const dropdownMenu = document.getElementById('userDropdownMenu');
     const dropdownName = document.getElementById('dropdownName');
+    const dropdownLabel = document.getElementById('dropdownLabel');
     const firstName = user.attrs?.firstName || '';
     const lastName = user.attrs?.lastName || '';
     const login = user.login || '';
     dropdownName.textContent = `${firstName} ${lastName}`.trim() || login;
     dropdownMenu.innerHTML = `
         <div style="padding: 10px 0 5px 0; font-weight: 600; color: #6366f1; text-align: center;">${firstName} ${lastName}</div>
-        <div style="padding: 4px 16px; color: #c7d2fe;">Login: <b>${login}</b></div>
-        <div style="padding: 4px 16px; color: #c7d2fe;">Email: <b>${user.attrs?.email || 'N/A'}</b></div>
-        <div style="padding: 4px 16px; color: #c7d2fe;">Phone: <b>${user.attrs?.phone || 'N/A'}</b></div>
-        <div style="padding: 4px 16px; color: #c7d2fe;">Gender: <b>${user.attrs?.gender || 'N/A'}</b></div>
-        <div style="padding: 4px 16px; color: #c7d2fe;">DOB: <b>${user.attrs?.dateOfBirth || 'N/A'}</b></div>
+        <div>Login: <b>${login}</b></div>
+        <div>Email: <b>${user.attrs?.email || 'N/A'}</b></div>
+        <div>Phone: <b>${user.attrs?.phone || 'N/A'}</b></div>
+        <div>Gender: <b>${user.attrs?.gender || 'N/A'}</b></div>
+        <div>DOB: <b>${user.attrs?.dateOfBirth || 'N/A'}</b></div>
     `;
     // Dropdown show/hide logic
+    let dropdownOpen = false;
     dropdownBtn.onclick = (e) => {
         e.stopPropagation();
-        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        dropdownOpen = !dropdownOpen;
+        dropdownMenu.style.display = dropdownOpen ? 'block' : 'none';
+        dropdownLabel.innerHTML = dropdownOpen ? 'Account &#9650;' : 'Account';
     };
     document.addEventListener('click', function hideDropdown(e) {
-        if (dropdownMenu.style.display === 'block') {
+        if (dropdownOpen) {
             dropdownMenu.style.display = 'none';
+            dropdownLabel.innerHTML = 'Account';
+            dropdownOpen = false;
         }
     });
     dropdownMenu.onclick = (e) => e.stopPropagation();
