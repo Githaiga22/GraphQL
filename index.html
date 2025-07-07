@@ -6,15 +6,69 @@
     <title>GraphQL Profile Project</title>
     <!-- Link to main stylesheet -->
     <link rel="stylesheet" href="styles/main.css">
+    <style>
+        body {
+            background: #11182a;
+            color: #e2e8f0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .landing-container {
+            text-align: center;
+            background: #1e293b;
+            padding: 60px 40px 50px 40px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(30, 64, 175, 0.25);
+            max-width: 500px;
+        }
+        .landing-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #6366f1;
+            margin-bottom: 18px;
+        }
+        .landing-desc {
+            font-size: 1.18rem;
+            color: #c7d2fe;
+            margin-bottom: 38px;
+        }
+        .landing-login-btn {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            border: none;
+            padding: 16px 38px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.18);
+        }
+        .landing-login-btn:hover {
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            transform: translateY(-2px);
+        }
+        .landing-footer {
+            margin-top: 40px;
+            color: #64748b;
+            font-size: 0.98rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Landing page content -->
-    <h1>Welcome to the GraphQL Profile Project</h1>
-    <nav>
-        <!-- Navigation links to login and profile pages -->
-        <a href="login.html">Login</a> |
-        <a href="profile.html">Profile</a>
-    </nav>
-    <!-- Add more content or instructions here if needed -->
+    <div class="landing-container">
+        <div class="landing-title">Welcome to the GraphQL Profile Project</div>
+        <div class="landing-desc">
+            Build your personalized school profile, visualize your journey, and explore your achievements with beautiful interactive graphs.<br>
+            <span style="color:#818cf8;">Login to get started!</span>
+        </div>
+        <a href="login.html"><button class="landing-login-btn">Login</button></a>
+        <div class="landing-footer">
+            &copy; 2024 GraphQL Profile Project &mdash; Crafted with <span style="color:#f472b6;">&#10084;</span>
+        </div>
+    </div>
 </body>
 </html> 
