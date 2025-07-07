@@ -12,62 +12,68 @@
             color: #e2e8f0;
             margin: 0;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         .landing-container {
-            text-align: center;
+            margin: 80px 0 0 80px;
+            max-width: 480px;
             background: #1e293b;
-            padding: 60px 40px 50px 40px;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(30, 64, 175, 0.25);
-            max-width: 500px;
+            padding: 44px 36px 36px 36px;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(30, 64, 175, 0.18);
         }
         .landing-title {
-            font-size: 2.5rem;
+            font-size: 2.1rem;
             font-weight: 700;
             color: #6366f1;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
         }
         .landing-desc {
-            font-size: 1.18rem;
+            font-size: 1.08rem;
             color: #c7d2fe;
-            margin-bottom: 38px;
+            margin-bottom: 30px;
         }
         .landing-login-btn {
             background: linear-gradient(135deg, #6366f1, #4f46e5);
             color: white;
             border: none;
-            padding: 16px 38px;
-            border-radius: 10px;
-            font-size: 1.2rem;
+            padding: 13px 32px;
+            border-radius: 8px;
+            font-size: 1.08rem;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.18);
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.13);
         }
         .landing-login-btn:hover {
             background: linear-gradient(135deg, #4f46e5, #4338ca);
             transform: translateY(-2px);
         }
         .landing-footer {
-            margin-top: 40px;
+            margin-top: 38px;
             color: #64748b;
             font-size: 0.98rem;
+            border-top: 1px solid #334155;
+            padding-top: 14px;
+        }
+        .landing-footer a {
+            color: #818cf8;
+            text-decoration: none;
+            margin-left: 6px;
         }
     </style>
 </head>
 <body>
     <div class="landing-container">
-        <div class="landing-title">Welcome to the GraphQL Profile Project</div>
+        <div class="landing-title">Welcome to GraphQL Project</div>
         <div class="landing-desc">
-            Build your personalized school profile, visualize your journey, and explore your achievements with beautiful interactive graphs.<br>
-            <span style="color:#818cf8;">Login to get started!</span>
+            Explore your profile at your convenience.<br>
+            Login to get started.
         </div>
         <a href="login.html"><button class="landing-login-btn">Login</button></a>
         <div class="landing-footer">
-            &copy; 2024 GraphQL Profile Project &mdash; Crafted with <span style="color:#f472b6;">&#10084;</span>
+            Project created by Allan Robinson<br>
+            Github: <a href="https://github.com/githaiga22" target="_blank">@githaiga22</a> &nbsp;|&nbsp; Email: <a href="mailto:allangithaiga5@gmail.com">allangithaiga5@gmail.com</a>
         </div>
     </div>
 </body>
