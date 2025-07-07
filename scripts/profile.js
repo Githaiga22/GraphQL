@@ -136,13 +136,18 @@ function updateUI(userData) {
     const lastName = user.attrs?.lastName || '';
     const login = user.login || '';
     dropdownName.textContent = `${firstName} ${lastName}`.trim() || login;
+    // Format DOB to YYYY-MM-DD
+    let dob = user.attrs?.dateOfBirth || 'N/A';
+    if (dob && dob !== 'N/A') {
+        dob = dob.split('T')[0];
+    }
     dropdownMenu.innerHTML = `
         <div style="padding: 10px 0 5px 0; font-weight: 600; color: #6366f1; text-align: center;">${firstName} ${lastName}</div>
         <div>Login: <b>${login}</b></div>
         <div>Email: <b>${user.attrs?.email || 'N/A'}</b></div>
         <div>Phone: <b>${user.attrs?.phone || 'N/A'}</b></div>
         <div>Gender: <b>${user.attrs?.gender || 'N/A'}</b></div>
-        <div>DOB: <b>${user.attrs?.dateOfBirth || 'N/A'}</b></div>
+        <div>DOB: <b>${dob}</b></div>
     `;
     // Dropdown show/hide logic
     let dropdownOpen = false;
